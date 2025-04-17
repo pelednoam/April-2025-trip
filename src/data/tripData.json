@@ -1,0 +1,134 @@
+[
+  {
+    "day": 1,
+    "title": "Cambridge → North Adams, MA",
+    "activities": [
+      { "time": "9 AM", "description": "Depart Cambridge", "details": "via I-90 W (≈2 h 30 min)", "type": "drive" },
+      { "id": "mass-moca", "time": "11:30 AM", "description": "Arrive Mass MoCA", "details": "87 Marshall St. Explore indoor/outdoor installations (~2 h)", "type": "activity", "mapLink": "https://www.google.com/maps/search/?api=1&query=Mass+MoCA", "imageUrlKey": "massMoca", "coordinates": { "lat": 42.7001, "lng": -73.1148 } },
+      { "time": "1:30 PM", "description": "Lunch", "details": "Nearby café (e.g. Porch & Para)", "type": "food" },
+      { "time": "3 PM", "description": "Drive to Mount Greylock", "details": "20 min", "type": "drive", "mapLink": "https://www.google.com/maps/search/?api=1&query=Mount+Greylock+State+Reservation" },
+      {
+        "id": "hopper-trail",
+        "time": "3:20 PM",
+        "description": "Hike Hopper Trail",
+        "details": "0.8 mi easy loop, paved in spots, great summit views",
+        "type": "hike",
+        "imageUrlKey": "mountGreylock",
+        "coordinates": { "lat": 42.6376, "lng": -73.1662 },
+        "hikeInfo": {
+          "length": "0.8 miles",
+          "difficulty": "Easy",
+          "notes": "Itinerary describes a short, easy loop. Note: AllTrails lists a much longer, harder 'Hopper Trail' loop (6.6 mi). This likely refers to a shorter summit path.",
+          "trailUrlKey": "hopperTrailGreylock"
+        }
+      },
+      { "time": "5 PM", "description": "Check in & Dinner", "details": "Williamstown or North Adams (Porches Inn at Mass MoCA, or local B&B)", "type": "lodging" }
+    ]
+  },
+  {
+    "day": 2,
+    "title": "North Adams → Manchester, VT",
+    "activities": [
+      { "time": "9 AM", "description": "Depart North Adams", "details": "Head north on MA-2 → VT 7A (≈1 h)", "type": "drive" },
+      {
+        "id": "moss-glen-falls-granville",
+        "time": "10 AM",
+        "description": "Moss Glen Falls",
+        "details": "Granville, VT: 0.4 mi from parking to the base of two-tiered cascade—flat, kid-friendly. **Note: Footbridge on trail may be closed due to past flood damage; may only be a roadside view.**",
+        "type": "hike",
+        "mapLink": "https://www.google.com/maps/search/?api=1&query=Moss+Glen+Falls+Granville+VT",
+        "imageUrlKey": "mossGlenFallsGranville",
+        "coordinates": { "lat": 44.0241, "lng": -72.8476 },
+        "hikeInfo": {
+          "length": "0.2 - 0.4 miles",
+          "difficulty": "Easy",
+          "notes": "Very short walk on boardwalk/gravel path to viewing platform.",
+          "trailUrlKey": "mossGlenFallsGranvilleTrail"
+        }
+      },
+      { "time": "12 PM", "description": "Lunch in Manchester Village", "details": "Main St: artisan shops, chocolatier, toy store", "type": "food", "coordinates": { "lat": 43.1659, "lng": -73.0726 } },
+      {
+        "id": "optional-short-walk",
+        "time": "Flex",
+        "description": "Optional Short Walk (Choose One)",
+        "type": "activity",
+        "options": [
+          {
+            "name": "Equinox Preserve / Hildene",
+            "description": "(Manchester): Equinox Pond (2.5 mi, easy) or Hildene Loops (0.7-1.2 mi, easy). Low elevation, good for spring.",
+            "imageUrlKey": "equinoxPreserveHildene"
+          },
+          {
+            "name": "Thundering Falls Boardwalk",
+            "description": "(Killington): (0.4 mi, easy boardwalk to waterfall view). Accessible, good if route passes Killington.",
+            "imageUrlKey": "thunderingFalls"
+          },
+          {
+            "name": "Robert Frost Trail",
+            "description": "(Ripton): (1 mi, easy boardwalk/path with poems). Accessible, slight detour north.",
+            "imageUrlKey": "robertFrostTrail"
+          },
+          {
+            "name": "Historic Marble Rail Trail",
+            "description": "(Manchester): (1.6 mi one-way, flat rail trail). Easy walk in town.",
+            "imageUrlKey": "marbleRailTrail"
+          }
+        ]
+      },
+      { "id": "hildene", "time": "1:30 PM", "description": "Hildene (Lincoln family estate)", "details": "1–1.5 mi of flat, rolling \"carriage trails\" along the river and in gardens", "type": "activity", "mapLink": "https://www.google.com/maps/search/?api=1&query=Hildene+The+Lincoln+Family+Home", "imageUrlKey": "hildene", "coordinates": { "lat": 43.1403, "lng": -73.0794 } },
+      { "id": "manchester-stroll", "time": "3:30 PM", "description": "Stroll Manchester's boutiques", "details": "Or grab ice-cream at Dale's", "type": "activity" },
+      { "time": "6 PM", "description": "Dinner & Overnight", "details": "Manchester/Dorset (The Equinox or local inn)", "type": "lodging" }
+    ]
+  },
+  {
+    "day": 3,
+    "title": "Manchester → Lake Dunmore & Stowe, VT",
+    "activities": [
+      { "time": "9 AM", "description": "Depart Manchester", "details": "≈1 h drive", "type": "drive" },
+      { "id": "branbury-state-park", "time": "10 AM", "description": "Branbury State Park on Lake Dunmore", "details": "Lakeshore Trail (0.7 mi, level, boardwalk sections)—perfect for all ages and wheel-friendly. Optional paddleboat/kayak rentals.", "type": "activity", "mapLink": "https://www.google.com/maps/search/?api=1&query=Branbury+State+Park", "imageUrlKey": "branburyStatePark", "coordinates": { "lat": 43.9061, "lng": -73.0668 } },
+      { "time": "12 PM", "description": "Picnic/Lunch", "details": "On the beach or lunch at Branbury Park café", "type": "food" },
+      { "time": "1:30 PM", "description": "Drive to Stowe", "details": "≈1 h 15 min", "type": "drive", "mapLink": "https://www.google.com/maps/search/?api=1&query=Stowe+VT" },
+      {
+        "id": "optional-stowe-hike",
+        "time": "3 PM",
+        "description": "Optional Stowe Hike",
+        "type": "activity",
+        "options": [
+          {
+            "name": "Bingham Falls Trail (Upper/Cautious Lower)",
+            "description": "0.5-1.0 mi RT from Rte 108. Short but steep descent to base via rock steps. **WARNING:** Likely very slippery/wet/icy/muddy in April. Consider upper overlook only (0.5 mi RT) or be prepared to turn back if lower section seems unsafe.",
+            "imageUrlKey": "binghamFalls"
+          },
+          {
+            "name": "Stowe Recreation Path",
+            "description": "Up to 5.5 mi paved path along river. Flat, easy, avoids mud. Walk any distance.",
+            "imageUrlKey": "stoweRecPath"
+          },
+          {
+            "name": "Wiessner Woods",
+            "description": "2.1 mi network of easy/moderate forest trails. Lower elevation, but trails can be wet/muddy in spring. Use caution.",
+            "imageUrlKey": "wiessnerWoods"
+          },
+          {
+            "name": "Moss Glen Falls (Stowe)",
+            "description": "Check local conditions; trail can be wet/muddy in spring. (Different from Moss Glen Falls in Granville).",
+            "imageUrlKey": "mossGlenFallsStowe"
+          }
+        ]
+      },
+      { "id": "stowe-village-amble", "time": "5 PM", "description": "Amble through Stowe Village", "details": "Shops, sugar-shack maple treats, Stowe Bee ice cream", "type": "activity", "coordinates": { "lat": 44.4655, "lng": -72.6878 } },
+      { "time": "7 PM", "description": "Dinner & Overnight", "details": "Stowe or nearby Waterbury (Trapp Family Lodge or B&B)", "type": "lodging" }
+    ]
+  },
+  {
+    "day": 4,
+    "title": "Stowe → Quechee Gorge → Cambridge",
+    "activities": [
+      { "time": "9 AM", "description": "Depart Stowe", "details": "Drive to Quechee (≈1 h 15 min)", "type": "drive", "coordinates": { "lat": 44.4655, "lng": -72.6878 } },
+      { "id": "quechee-gorge", "time": "10:30 AM", "description": "Quechee Gorge Overlook", "details": "Short 0.2 mi paved rim walk to the bridge—stunning canyon views and the Ottauquechee River below", "type": "sightseeing", "mapLink": "https://www.google.com/maps/search/?api=1&query=Quechee+Gorge+Overlook", "imageUrlKey": "quecheeGorge", "coordinates": { "lat": 43.6455, "lng": -72.4132 } },
+      { "time": "11:30 AM", "description": "Light Lunch", "details": "Simon Pearce restaurant or picnic at the park", "type": "food" },
+      { "time": "1 PM", "description": "Begin drive home", "details": "via I-89 S → I-93 S (≈3 h)", "type": "drive" },
+      { "time": "4 PM", "description": "Arrive Cambridge", "type": "drive", "coordinates": { "lat": 42.3736, "lng": -71.1097 } }
+    ]
+  }
+] 

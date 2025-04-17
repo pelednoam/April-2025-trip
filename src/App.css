@@ -1,38 +1,303 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 15px;
+  background-color: #eef1f5; /* Lighter grey background */
+  color: #333;
+}
+
 .App {
+  max-width: 900px; /* Slightly wider */
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
   text-align: center;
+  color: #2c3e50; /* Darker blue-grey */
+  margin-bottom: 25px;
+  font-weight: 600;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.trip-day-card {
+  background-color: #fdfdfd; /* Slightly off-white */
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.trip-day-card h2 {
+  margin-top: 0;
+  margin-bottom: 20px; /* More space below day title */
+  color: #1a5f7a; /* Teal color */
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 12px;
+  font-weight: 500;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.activity-item {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px dashed #e8e8e8; /* Dashed separator */
+  gap: 15px; /* Gap between icon/time and content */
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.activity-icon-time-wrapper {
+  display: flex;
+  flex-direction: column; /* Stack icon and time */
+  align-items: center;
+  text-align: center;
+  min-width: 60px; /* Slightly narrower */
+}
+
+.activity-icon {
+  font-size: 1.4em; /* Larger icon */
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Specific icon colors (optional) */
+.activity-type-drive .activity-icon { color: #3498db; } /* Blue */
+.activity-type-hike .activity-icon { color: #27ae60; } /* Green */
+.activity-type-food .activity-icon { color: #e67e22; } /* Orange */
+.activity-type-activity .activity-icon { color: #f1c40f; } /* Yellow */
+.activity-type-lodging .activity-icon { color: #9b59b6; } /* Purple */
+.activity-type-sightseeing .activity-icon { color: #1abc9c; } /* Turquoise */
+
+
+.activity-time {
+  font-weight: 600; /* Slightly bolder time */
+  color: #444;
+  font-size: 0.9em;
+  /* Removed margin-right as gap is used now */
+}
+
+.activity-content {
+  flex-grow: 1;
+}
+
+.activity-content strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.activity-content p {
+  margin: 0 0 10px 0;
+  color: #555;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+.activity-content a {
+  color: #3498db; /* Consistent link blue */
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: color 0.2s ease;
+}
+
+.activity-content a:hover {
+  text-decoration: underline;
+  color: #2980b9; /* Darker blue on hover */
+}
+
+.activity-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px; /* Slightly more rounded */
+  margin-top: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.hike-details {
+  background-color: #f8f9fa;
+  border-left: 4px solid #1abc9c; /* Turquoise border */
+  padding: 10px 15px;
+  margin-top: 12px;
+  margin-bottom: 10px;
+  border-radius: 0 5px 5px 0;
+  font-size: 0.9em; /* Base size for hike details */
+}
+
+.hike-details h4 {
+  margin: 0 0 8px 0;
+  font-size: 1em; /* Relative to parent */
+  color: #333;
+  font-weight: 600;
+}
+
+.hike-details p {
+  margin: 4px 0;
+  font-size: 0.95em; /* Relative to parent */
+  color: #555;
+  line-height: 1.4;
+}
+
+.hike-details p em {
+  color: #777;
+  font-style: normal;
+}
+
+.hike-details a {
+  font-weight: bold;
+  color: #16a085; /* Darker turquoise */
+}
+
+.hike-details a:hover {
+  color: #117a65;
+}
+
+.activity-link {
+  display: inline-block; /* Allows margin */
+  margin-right: 15px; /* More space between map link and image */
+  margin-bottom: 5px; /* Space below if wrapping */
+  background-color: #f0f0f0;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 0.85em;
+  color: #555;
+}
+
+.activity-link:hover {
+  background-color: #e0e0e0;
+  text-decoration: none;
+  color: #333;
+}
+
+.map-container {
+  margin-bottom: 20px; /* More space below the map */
+  border: 1px solid #d5dbe1;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.map-placeholder {
+  height: 250px; /* Match mapHeight */
+  background: #f8f9fa;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  color: #888;
+  font-style: italic;
+  border: 1px solid #d5dbe1;
+  border-radius: 6px;
+  margin-bottom: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+/* Ensure Leaflet popups look okay */
+.leaflet-popup-content-wrapper {
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.leaflet-popup-content {
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+.leaflet-popup-content strong {
+  color: #2c3e50;
+}
+
+.leaflet-popup-content em {
+  color: #666;
+  font-style: normal;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .App {
+    padding: 15px;
   }
-  to {
-    transform: rotate(360deg);
+  .trip-day-card {
+    padding: 15px;
   }
+  .activity-item {
+    flex-direction: column; /* Stack icon/time and content on small screens */
+    align-items: stretch; /* Stretch items */
+    gap: 10px;
+  }
+  .activity-icon-time-wrapper {
+    flex-direction: row; /* Put icon and time side-by-side */
+    align-items: center;
+    min-width: auto; /* Allow natural width */
+    margin-bottom: 5px;
+  }
+  .activity-icon {
+     margin-bottom: 0; /* Remove bottom margin when row */
+     margin-right: 8px; /* Add right margin */
+     font-size: 1.2em; /* Slightly smaller */
+  }
+  .activity-time {
+    font-size: 0.85em;
+  }
+}
+
+.activity-item strong {
+  display: block; /* Ensure title is on its own line */
+  margin-bottom: 0.25rem;
+}
+
+/* Styling for the details toggle button */
+.details-toggle-button {
+  background: none;
+  border: none;
+  color: #007bff; /* Bootstrap primary blue, or choose another color */
+  cursor: pointer;
+  padding: 0.25rem 0;
+  margin-top: 0.5rem; /* Space above the button */
+  margin-bottom: 0.5rem; /* Space below the button */
+  font-size: 0.9em;
+  display: inline-flex; /* Align icon and text */
+  align-items: center; /* Vertically align icon and text */
+}
+
+.details-toggle-button svg {
+  margin-right: 0.3em; /* Space between icon and text */
+}
+
+.details-toggle-button:hover,
+.details-toggle-button:focus {
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Styling for the fetched details container */
+.activity-fetched-details {
+  border-left: 3px solid #eee; /* Add a subtle left border */
+  padding: 0.5rem 0.8rem; /* Add some padding */
+  margin-top: 0.5rem; /* Space above details */
+  margin-bottom: 0.5rem; /* Space below details */
+  background-color: #f9f9f9; /* Slight background color */
+  font-size: 0.9em;
+  color: #333; /* Darker text color for readability */
+}
+
+.activity-fetched-details p {
+  margin-bottom: 0.4rem; /* Space between detail paragraphs */
+}
+
+.activity-fetched-details strong {
+   display: inline; /* Keep label and value on same line */
+   margin-bottom: 0; /* Reset margin from general rule */
+   margin-right: 0.3em;
+}
+
+.activity-fetched-details a {
+  color: #0056b3; /* Slightly darker blue for links */
 }
