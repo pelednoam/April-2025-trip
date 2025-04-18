@@ -87,7 +87,7 @@ function App() {
       <h1>April 2025 - New England Loop</h1>
       {tripItinerary.map(dayData => (
         <div key={dayData.day} id={`day-${dayData.day}`}>
-          <TripDayCard dayData={dayData} />
+          <TripDayCard dayData={dayData} itinerary={tripItinerary} />
         </div>
       ))}
     </div>

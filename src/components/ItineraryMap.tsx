@@ -41,7 +41,14 @@ const ItineraryMap: React.FC<ItineraryMapProps> = ({ itinerary, onMarkerClick, c
   const locations: MapLocation[] = React.useMemo(() => {
     const allMapActivities = itinerary.flatMap(day =>
       day.activities
-        .filter(activity => activity.coordinates && (activity.type === 'activity' || activity.type === 'hike' || activity.type === 'sightseeing'))
+        // Include activity, hike, sightseeing, AND lodging types if they have coordinates
+        .filter(activity => activity.coordinates && 
+            (activity.type === 'activity' || 
+             activity.type === 'hike' || 
+             activity.type === 'sightseeing' ||
+             (activity.type === 'lodging' && !!activity.name) // Only include primary lodging entries with names
+            )
+         )
         .map(activity => ({ ...activity, dayNumber: day.day }))
     );
 
@@ -49,9 +56,20 @@ const ItineraryMap: React.FC<ItineraryMapProps> = ({ itinerary, onMarkerClick, c
       // --- Daily View ---
       // Filter activities for the current day
       const dailyActivities = allMapActivities.filter(loc => loc.dayNumber === currentDay);
-      // Simple approach: Return just the day's activities.
-      // Consider edge cases: what if a day has 0 or 1 point? Bounds/Polyline might need adjustment.
-      return dailyActivities;
+      
+      // Add lodging for the current day IF it exists and has coordinates
+      const todaysLodging = itinerary
+        .find(day => day.day === currentDay)?.activities
+        .find(act => act.type === 'lodging' && act.coordinates);
+
+      let combinedDaily = [...dailyActivities];
+      if (todaysLodging && !dailyActivities.some(act => act.id === todaysLodging.id)) {
+        combinedDaily.push({ ...todaysLodging, dayNumber: currentDay });
+      }
+      // Optionally find lodging from previous day if current day doesn't have primary one?
+      // For now, keeps it simple.
+
+      return combinedDaily;
 
     } else {
       // --- Full Trip Overview ---
@@ -60,13 +78,11 @@ const ItineraryMap: React.FC<ItineraryMapProps> = ({ itinerary, onMarkerClick, c
             dayNumber: 0, // Use 0 for the start/end point
             description: "Home (Cambridge, MA)",
             time: '',
-            type: 'activity',
+            type: 'activity', // Keep type as activity for consistency?
             coordinates: { lat: 42.3736, lng: -71.1097 },
        };
-      // Combine home with all activities for the overview
+      // Combine home with all activities (including lodging) for the overview
       return [homeLocation, ...allMapActivities];
-      // Potentially add Home again at the end if Day 4 ends there explicitly in data?
-      // For now, keeping existing logic which connects back to start.
     }
   }, [itinerary, currentDay]);
 
@@ -130,12 +146,19 @@ const ItineraryMap: React.FC<ItineraryMapProps> = ({ itinerary, onMarkerClick, c
                  }
               },
             }}
+            // Optional: Use a different icon for lodging?
+            // icon={location.type === 'lodging' ? lodgingIcon : undefined}
           >
-            <Tooltip>{location.dayNumber > 0 ? `Day ${location.dayNumber}: ` : ''}{location.description}</Tooltip>
+            <Tooltip>
+              {location.type === 'lodging' ? `Night${location.nights && location.nights.length > 1 ? 's' : ''} ${location.nights?.join(' & ')} Lodging: ` : (location.dayNumber > 0 ? `Day ${location.dayNumber}: ` : '')}
+              {location.name || location.description} {/* Use lodging name if available */}
+             </Tooltip>
             <Popup>
-              <strong>{location.description}</strong>
-              {location.details && <p>{location.details}</p>}
-              {location.mapLink && <a href={location.mapLink} target="_blank" rel="noopener noreferrer">View Map</a>}
+              <strong>{location.name || location.description}</strong>
+              {location.location && <p>{location.location}</p>} {/* Show location for lodging */}
+              {location.details && !location.location && <p>{location.details}</p>} {/* Show details if not lodging */}
+              {location.link && location.type === 'lodging' && <a href={location.link} target="_blank" rel="noopener noreferrer">View Booking</a>} {/* Lodging Link */}
+              {location.mapLink && location.type !== 'lodging' && <a href={location.mapLink} target="_blank" rel="noopener noreferrer">View Map</a>} {/* Non-lodging Map Link */}
             </Popup>
           </Marker>
         )

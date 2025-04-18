@@ -22,14 +22,30 @@
           "trailUrlKey": "hopperTrailGreylock"
         }
       },
-      { "time": "5 PM", "description": "Check in & Dinner", "details": "Williamstown or North Adams (Porches Inn at Mass MoCA, or local B&B)", "type": "lodging" }
+      { 
+        "time": "5:00 PM", 
+        "description": "Drive to Wilmington Lodging", 
+        "details": "(≈1 hour from Mt Greylock area)", 
+        "type": "drive" 
+      },
+      { "time": "6:00 PM", 
+        "description": "Check in & Dinner", 
+        "details": "Entire home in Wilmington, Vermont", 
+        "type": "lodging",
+        "name": "Entire home in Wilmington, Vermont",
+        "location": "87 West Main Street, Wilmington, VT 05363, United States",
+        "link": "https://www.airbnb.com/rooms/34468419",
+        "image": "https://a0.muscache.com/im/pictures/2693db60-8434-48f2-84a6-8fc60af67eef.jpg?im_w=1200",
+        "nights": [1, 2],
+        "coordinates": { "lat": 42.8704, "lng": -72.8743 }
+      }
     ]
   },
   {
     "day": 2,
-    "title": "North Adams → Manchester, VT",
+    "title": "Wilmington → Manchester, VT → Wilmington",
     "activities": [
-      { "time": "9 AM", "description": "Depart North Adams", "details": "Head north on MA-2 → VT 7A (≈1 h)", "type": "drive" },
+      { "time": "9 AM", "description": "Depart Wilmington lodging", "details": "Drive to Manchester area (≈1 h 15 min via VT-9 E and US-7 N)", "type": "drive" },
       {
         "id": "moss-glen-falls-granville",
         "time": "10 AM",
@@ -77,14 +93,15 @@
       },
       { "id": "hildene", "time": "1:30 PM", "description": "Hildene (Lincoln family estate)", "details": "1–1.5 mi of flat, rolling \"carriage trails\" along the river and in gardens", "type": "activity", "mapLink": "https://www.google.com/maps/search/?api=1&query=Hildene+The+Lincoln+Family+Home", "imageUrlKey": "hildene", "coordinates": { "lat": 43.1403, "lng": -73.0794 } },
       { "id": "manchester-stroll", "time": "3:30 PM", "description": "Stroll Manchester's boutiques", "details": "Or grab ice-cream at Dale's", "type": "activity" },
-      { "time": "6 PM", "description": "Dinner & Overnight", "details": "Manchester/Dorset (The Equinox or local inn)", "type": "lodging" }
+      { "time": "5 PM", "description": "Drive back to Wilmington", "details": "(≈1 h 15 min)", "type": "drive" },
+      { "time": "6:15 PM", "description": "Dinner & Overnight in Wilmington", "details": "Return to Airbnb", "type": "lodging", "ref_lodging_day": 1 }
     ]
   },
   {
     "day": 3,
-    "title": "Manchester → Lake Dunmore & Stowe, VT",
+    "title": "Wilmington → Lake Dunmore & Stowe, VT",
     "activities": [
-      { "time": "9 AM", "description": "Depart Manchester", "details": "≈1 h drive", "type": "drive" },
+      { "time": "9 AM", "description": "Depart Wilmington lodging", "details": "Drive towards Lake Dunmore (≈2 h)", "type": "drive" },
       { "id": "branbury-state-park", "time": "10 AM", "description": "Branbury State Park on Lake Dunmore", "details": "Lakeshore Trail (0.7 mi, level, boardwalk sections)—perfect for all ages and wheel-friendly. Optional paddleboat/kayak rentals.", "type": "activity", "mapLink": "https://www.google.com/maps/search/?api=1&query=Branbury+State+Park", "imageUrlKey": "branburyStatePark", "coordinates": { "lat": 43.9061, "lng": -73.0668 } },
       { "time": "12 PM", "description": "Picnic/Lunch", "details": "On the beach or lunch at Branbury Park café", "type": "food" },
       { "time": "1:30 PM", "description": "Drive to Stowe", "details": "≈1 h 15 min", "type": "drive", "mapLink": "https://www.google.com/maps/search/?api=1&query=Stowe+VT" },
@@ -117,7 +134,23 @@
         ]
       },
       { "id": "stowe-village-amble", "time": "5 PM", "description": "Amble through Stowe Village", "details": "Shops, sugar-shack maple treats, Stowe Bee ice cream", "type": "activity", "coordinates": { "lat": 44.4655, "lng": -72.6878 } },
-      { "time": "7 PM", "description": "Dinner & Overnight", "details": "Stowe or nearby Waterbury (Trapp Family Lodge or B&B)", "type": "lodging" }
+      { 
+        "time": "6:50 PM", 
+        "description": "Drive to Stowe Lodging", 
+        "details": "(≈10 min from Stowe Village)", 
+        "type": "drive" 
+      },
+      { "time": "7:00 PM", 
+        "description": "Dinner & Overnight", 
+        "details": "Modern Condo Filled with Natural Sunlight", 
+        "type": "lodging",
+        "name": "Modern Condo Filled with Natural Sunlight",
+        "location": "977 Taber Hill Road, Stowe, VT 05672",
+        "link": "https://www.airbnb.com/rooms/906660728391660535",
+        "image": "https://a0.muscache.com/im/pictures/prohost-api/Hosting-906660728391660535/original/6e57f6c5-2dfa-4312-857d-4e06bb5356f8.jpeg?im_w=1200",
+        "nights": [3],
+        "coordinates": { "lat": 44.4568, "lng": -72.7310 }
+      }
     ]
   },
   {

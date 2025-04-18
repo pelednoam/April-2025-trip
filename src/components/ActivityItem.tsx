@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Activity, ActivityOption } from '../types/trip';
 import { PLACEHOLDER_IMG } from '../data/itinerary'; // Re-added import
 import HikeDetailsDisplay from './HikeDetailsDisplay';
-import { FaCar, FaCameraRetro, FaUtensils, FaHiking, FaBed, FaEye, FaMapMarkerAlt, FaInfoCircle } from 'react-icons/fa';
+import { FaCar, FaCameraRetro, FaUtensils, FaHiking, FaBed, FaEye, FaMapMarkerAlt, FaInfoCircle, FaExternalLinkAlt, FaDirections } from 'react-icons/fa';
 import activityDetailsData from '../data/activityDetails.json'; // Import the details JSON
 
 // Define an interface for the structure of activity details
@@ -19,6 +19,13 @@ interface ActivityDetail {
 // Type assertion for the imported JSON to specify the keys are strings and values are ActivityDetail
 const activityDetails: { [key: string]: ActivityDetail } = activityDetailsData;
 
+interface ActivityItemProps {
+  activity: Activity;
+  dayActivities: Activity[]; // All activities for the current day
+  activityIndex: number;    // Index of this activity within the day
+  previousLodgingCoords?: { lat: number; lng: number }; // Coords of previous night's lodging
+}
+
 // Helper function to get icon based on type
 const getActivityIcon = (type: Activity['type']): React.ReactElement => {
   switch (type) {
@@ -32,7 +39,7 @@ const getActivityIcon = (type: Activity['type']): React.ReactElement => {
   }
 };
 
-const ActivityItem: React.FC<{ activity: Activity }> = ({ activity }) => {
+const ActivityItem: React.FC<ActivityItemProps> = ({ activity, dayActivities, activityIndex, previousLodgingCoords }) => {
   const [isExpanded, setIsExpanded] = useState(false); // State for expansion
   // State to track the selected option index, default to 0 if options exist
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(activity.options && activity.options.length > 0 ? 0 : -1);
@@ -55,14 +62,56 @@ const ActivityItem: React.FC<{ activity: Activity }> = ({ activity }) => {
     setSelectedOptionIndex(parseInt(event.target.value, 10));
   };
 
+  // Determine if the activity is the primary lodging entry (has name, image etc.) 
+  // vs a reference entry (like on Day 2 which refers back to Day 1)
+  const isPrimaryLodging = activity.type === 'lodging' && !!activity.name;
+
+  // --- Logic to find origin coordinates for directions ---
+  const originCoords = React.useMemo(() => {
+    if (activityIndex === 0) {
+      return previousLodgingCoords;
+    } else {
+      for (let i = activityIndex - 1; i >= 0; i--) {
+        if (dayActivities[i].coordinates) {
+          return dayActivities[i].coordinates;
+        }
+      }
+      // Fallback to previous lodging if no prior activity had coords (less likely)
+      return previousLodgingCoords; 
+    }
+  }, [dayActivities, activityIndex, previousLodgingCoords]);
+
+  // --- Construct Google Maps Directions URL ---
+  const directionsUrl = React.useMemo(() => {
+    if (originCoords && activity.coordinates) {
+      return `https://www.google.com/maps/dir/?api=1&origin=${originCoords.lat},${originCoords.lng}&destination=${activity.coordinates.lat},${activity.coordinates.lng}`;
+    }
+    return undefined;
+  }, [originCoords, activity.coordinates]);
+  // --- End Directions Logic ---
+
   return (
-    <div className={`activity-item activity-type-${activity.type}`}>
+    <div className={`activity-item activity-type-${activity.type}${isPrimaryLodging ? ' activity-lodging-primary' : ''}`}>
       <div className="activity-icon-time-wrapper">
         <span className="activity-icon">{getActivityIcon(activity.type)}</span>
         <span className="activity-time">{activity.time}</span>
       </div>
       <div className="activity-content">
-        <strong>{activity.description}</strong>
+        <strong>
+          {isPrimaryLodging ? activity.name : activity.description}
+          {/* Add Directions Link if URL exists */} 
+          {directionsUrl && (
+            <a href={directionsUrl} target="_blank" rel="noopener noreferrer" className="activity-link directions-link" title="Get Directions" style={{ marginLeft: '0.5em', verticalAlign: 'middle' }}>
+              <FaDirections />
+            </a>
+          )}
+          {activity.type === 'lodging' && activity.link && (
+            <a href={activity.link} target="_blank" rel="noopener noreferrer" className="activity-link" title="View Booking" style={{ marginLeft: '0.5em', verticalAlign: 'middle' }}>
+              <FaExternalLinkAlt />
+            </a>
+          )}
+        </strong>
+
         {/* Add a button to toggle details if they exist */}
         {details && (
           <button onClick={toggleExpand} className="details-toggle-button" aria-expanded={isExpanded}>
@@ -70,8 +119,25 @@ const ActivityItem: React.FC<{ activity: Activity }> = ({ activity }) => {
           </button>
         )}
 
-        {/* Render dropdown if options exist, otherwise render details */}
-        {activity.options && activity.options.length > 0 ? (
+        {/* Render lodging details if it's the primary lodging entry */}
+        {isPrimaryLodging && (
+          <div className="lodging-details">
+            <p>{activity.location}</p>
+            {/* Display image only for the primary lodging entry */}
+            {activity.image && (
+              <img
+                src={activity.image}
+                alt={activity.name || 'Lodging image'}
+                className="activity-image lodging-image"
+                onError={handleImageError}
+                loading="lazy"
+              />
+            )}
+          </div>
+        )}
+
+        {/* Render dropdown for options or standard details for other types */}
+        {!isPrimaryLodging && activity.options && activity.options.length > 0 ? (
           <div className="activity-options-dropdown">
             <label htmlFor={`options-select-${activity.id || Math.random()}`} style={{ marginRight: '0.5em' }}>Choose Option:</label>
             <select
@@ -103,10 +169,11 @@ const ActivityItem: React.FC<{ activity: Activity }> = ({ activity }) => {
             )}
           </div>
         ) : (
-          activity.details && <p>{activity.details}</p>
+          !isPrimaryLodging && activity.details && <p>{activity.details}</p>
         )}
 
-        {activity.hikeInfo && <HikeDetailsDisplay hikeInfo={activity.hikeInfo} />}
+        {/* Render hike details only if not primary lodging */}
+        {!isPrimaryLodging && activity.hikeInfo && <HikeDetailsDisplay hikeInfo={activity.hikeInfo} />}
 
         {/* Conditionally render the fetched details */}
         {isExpanded && details && (
@@ -120,16 +187,19 @@ const ActivityItem: React.FC<{ activity: Activity }> = ({ activity }) => {
             {details.source && <p><small><em>Source: <a href={details.source} target="_blank" rel="noopener noreferrer">{details.source}</a></em></small></p>}
           </div>
         )}
-
-        {activity.mapLink && <a href={activity.mapLink} target="_blank" rel="noopener noreferrer" className="activity-link">View Map</a>}
-        {activity.imageUrl && (
-          <img
-            src={activity.imageUrl}
-            alt={activity.description}
-            className="activity-image"
-            onError={handleImageError} // Re-added error handler
-            loading="lazy" // Add lazy loading for images
-          />
+        
+        {/* Render map link only if not primary lodging (link handled separately) */}
+        {!isPrimaryLodging && activity.mapLink && <a href={activity.mapLink} target="_blank" rel="noopener noreferrer" className="activity-link">View Map</a>}
+        
+        {/* Render generic image only if NOT primary lodging AND imageUrl exists */}
+        {!isPrimaryLodging && activity.imageUrl && (
+           <img
+             src={activity.imageUrl}
+             alt={activity.description}
+             className="activity-image"
+             onError={handleImageError} // Re-added error handler
+             loading="lazy" // Add lazy loading for images
+           />
          )}
       </div>
     </div>

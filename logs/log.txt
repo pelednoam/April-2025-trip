@@ -1,0 +1,73 @@
+Compiled with problems:
+×
+ERROR in src/components/ActivityItem.tsx:10:27
+TS2786: 'FaCar' cannot be used as a JSX component.
+  Its return type 'ReactNode' is not a valid JSX element.
+    Type 'undefined' is not assignable to type 'Element | null'.
+     8 | const getActivityIcon = (type: Activity['type']): React.ReactElement => {
+     9 |   switch (type) {
+  > 10 |     case 'drive': return <FaCar title="Drive" />;
+       |                           ^^^^^
+    11 |     case 'activity': return <FaCameraRetro title="Activity" />;
+    12 |     case 'food': return <FaUtensils title="Food" />;
+    13 |     case 'hike': return <FaHiking title="Hike" />;
+ERROR in src/components/ActivityItem.tsx:11:30
+TS2786: 'FaCameraRetro' cannot be used as a JSX component.
+  Its return type 'ReactNode' is not a valid JSX element.
+     9 |   switch (type) {
+    10 |     case 'drive': return <FaCar title="Drive" />;
+  > 11 |     case 'activity': return <FaCameraRetro title="Activity" />;
+       |                              ^^^^^^^^^^^^^
+    12 |     case 'food': return <FaUtensils title="Food" />;
+    13 |     case 'hike': return <FaHiking title="Hike" />;
+    14 |     case 'lodging': return <FaBed title="Lodging" />;
+ERROR in src/components/ActivityItem.tsx:12:26
+TS2786: 'FaUtensils' cannot be used as a JSX component.
+  Its return type 'ReactNode' is not a valid JSX element.
+    10 |     case 'drive': return <FaCar title="Drive" />;
+    11 |     case 'activity': return <FaCameraRetro title="Activity" />;
+  > 12 |     case 'food': return <FaUtensils title="Food" />;
+       |                          ^^^^^^^^^^
+    13 |     case 'hike': return <FaHiking title="Hike" />;
+    14 |     case 'lodging': return <FaBed title="Lodging" />;
+    15 |     case 'sightseeing': return <FaEye title="Sightseeing" />;
+ERROR in src/components/ActivityItem.tsx:13:26
+TS2786: 'FaHiking' cannot be used as a JSX component.
+  Its return type 'ReactNode' is not a valid JSX element.
+    11 |     case 'activity': return <FaCameraRetro title="Activity" />;
+    12 |     case 'food': return <FaUtensils title="Food" />;
+  > 13 |     case 'hike': return <FaHiking title="Hike" />;
+       |                          ^^^^^^^^
+    14 |     case 'lodging': return <FaBed title="Lodging" />;
+    15 |     case 'sightseeing': return <FaEye title="Sightseeing" />;
+    16 |     default: return <FaMapMarkerAlt title="Location" />; // Default icon
+ERROR in src/components/ActivityItem.tsx:14:29
+TS2786: 'FaBed' cannot be used as a JSX component.
+  Its return type 'ReactNode' is not a valid JSX element.
+    12 |     case 'food': return <FaUtensils title="Food" />;
+    13 |     case 'hike': return <FaHiking title="Hike" />;
+  > 14 |     case 'lodging': return <FaBed title="Lodging" />;
+       |                             ^^^^^
+    15 |     case 'sightseeing': return <FaEye title="Sightseeing" />;
+    16 |     default: return <FaMapMarkerAlt title="Location" />; // Default icon
+    17 |   }
+ERROR in src/components/ActivityItem.tsx:15:33
+TS2786: 'FaEye' cannot be used as a JSX component.
+  Its return type 'ReactNode' is not a valid JSX element.
+    13 |     case 'hike': return <FaHiking title="Hike" />;
+    14 |     case 'lodging': return <FaBed title="Lodging" />;
+  > 15 |     case 'sightseeing': return <FaEye title="Sightseeing" />;
+       |                                 ^^^^^
+    16 |     default: return <FaMapMarkerAlt title="Location" />; // Default icon
+    17 |   }
+    18 | };
+ERROR in src/components/ActivityItem.tsx:16:22
+TS2786: 'FaMapMarkerAlt' cannot be used as a JSX component.
+  Its return type 'ReactNode' is not a valid JSX element.
+    14 |     case 'lodging': return <FaBed title="Lodging" />;
+    15 |     case 'sightseeing': return <FaEye title="Sightseeing" />;
+  > 16 |     default: return <FaMapMarkerAlt title="Location" />; // Default icon
+       |                      ^^^^^^^^^^^^^^
+    17 |   }
+    18 | };
+    19 |
