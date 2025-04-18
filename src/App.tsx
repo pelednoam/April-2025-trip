@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { tripItinerary } from './data/itinerary';
 import TripDayCard from './components/TripDayCard';
@@ -72,24 +72,44 @@ const ActivityItem: React.FC<{ activity: Activity }> = ({ activity }) => {
 };
 
 function App() {
+  const [activeDay, setActiveDay] = useState<number>(1);
 
-  // Function to handle map marker clicks
   const handleMarkerClick = (dayNumber: number) => {
-    const element = document.getElementById(`day-${dayNumber}`);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    setActiveDay(dayNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
   };
+
+  const activeDayData = tripItinerary.find(day => day.day === activeDay);
 
   return (
     <div className="App">
-      <ItineraryMap itinerary={tripItinerary} onMarkerClick={handleMarkerClick} />
+      <ItineraryMap 
+        itinerary={tripItinerary} 
+        onMarkerClick={handleMarkerClick} 
+      />
       <h1>April 2025 - New England Loop</h1>
-      {tripItinerary.map(dayData => (
-        <div key={dayData.day} id={`day-${dayData.day}`}>
-          <TripDayCard dayData={dayData} itinerary={tripItinerary} />
-        </div>
-      ))}
+      
+      {/* Tab Navigation */}
+      <div className="tabs">
+        {tripItinerary.map(dayData => (
+          <button 
+            key={dayData.day} 
+            className={`tab-button ${dayData.day === activeDay ? 'active' : ''}`}
+            onClick={() => setActiveDay(dayData.day)}
+          >
+            Day {dayData.day}
+          </button>
+        ))}
+      </div>
+
+      {/* Content Area - Render only the active day's card */}
+      <div className="tab-content">
+        {activeDayData ? (
+          <TripDayCard dayData={activeDayData} itinerary={tripItinerary} />
+        ) : (
+          <p>Select a day to view the itinerary.</p> 
+        )}
+      </div>
     </div>
   );
 }
